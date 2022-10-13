@@ -32,3 +32,12 @@ def update_book(request, book_id):
         book_form.save()
         return redirect('index')
     return render(request, 'book/upload_form.html', {'upload_form': book_form})
+
+def delete_book(request, book_id):
+    book_id = int(book_id)
+    try:
+        book_shelf = Book.objects.get(id = book_id)
+    except Book.DoesNotExist:
+        return redirect('index')
+    book_shelf.delete()
+    return redirect('index')    
